@@ -116,5 +116,10 @@ target_link_libraries(Spix
 #
 # Install
 #
-install(TARGETS Spix)
+install(
+    TARGETS Spix
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
 install(DIRECTORY include/Spix DESTINATION include)
