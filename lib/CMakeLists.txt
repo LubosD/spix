@@ -112,3 +112,9 @@ target_link_libraries(Spix
         Qt5::Quick
         AnyRPC::anyrpc
 )
+
+#
+# Install
+#
+install(TARGETS Spix)
+install(DIRECTORY include/Spix DESTINATION include)
