@@ -7,5 +7,5 @@ else
 fi
 
 cat compile_commands.json
-cmake  --build .
+cmake  --build -j 2 .
 ctest -VV .
