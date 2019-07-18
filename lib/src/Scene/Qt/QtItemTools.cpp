@@ -31,8 +31,13 @@ QQuickItem* RepeaterChildWithName(QQuickItem* repeater, const QString& name)
     QQuickItem* item = nullptr;
     do {
         item = RepeaterChildAtIndex(repeater, itemIndex);
-        if (item && item->objectName() == name) {
-            break;
+        if (item) {
+            if (item->objectName() == name)
+                break;
+
+            QQuickItem* childItem = item->findChild<QQuickItem*>(name);
+            if (childItem)
+                return childItem;
         }
 
         ++itemIndex;
@@ -62,8 +67,13 @@ QQuickItem* ListViewChildWithName(QQuickItem* repeater, const QString& name)
     QQuickItem* item = nullptr;
     do {
         item = ListViewChildAtIndex(repeater, itemIndex);
-        if (item && item->objectName() == name) {
-            break;
+        if (item) {
+            if (item->objectName() == name)
+                break;
+
+            QQuickItem* childItem = item->findChild<QQuickItem*>(name);
+            if (childItem)
+                return childItem;
         }
 
         ++itemIndex;

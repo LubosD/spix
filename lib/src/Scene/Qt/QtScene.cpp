@@ -34,6 +34,19 @@ QQuickWindow* getQQuickWindowWithName(const std::string& name)
     return foundWindow;
 }
 
+static bool isInstanceOf(QObject* object, const QString& className)
+{
+    const QMetaObject* metaObject = object->metaObject();
+
+    while (metaObject != nullptr) {
+        if (metaObject->className() == className)
+            return true;
+        metaObject = metaObject->superClass();
+    }
+
+    return false;
+}
+
 QQuickItem* getQQuickItemWithRoot(const spix::ItemPath& path, QObject* root)
 {
     if (path.length() == 0) {
@@ -43,7 +56,6 @@ QQuickItem* getQQuickItemWithRoot(const spix::ItemPath& path, QObject* root)
         return nullptr;
     }
 
-    auto rootClassName = root->metaObject()->className();
     auto itemName = path.rootComponent();
     QQuickItem* subItem = nullptr;
 
@@ -52,10 +64,10 @@ QQuickItem* getQQuickItemWithRoot(const spix::ItemPath& path, QObject* root)
         if (propValue.isValid())
             subItem = propValue.value<QQuickItem*>();
     } else {
-        if (rootClassName == spix::qt::repeater_class_name) {
+        if (isInstanceOf(root, spix::qt::repeater_class_name)) {
             QQuickItem* repeater = static_cast<QQuickItem*>(root);
             subItem = spix::qt::RepeaterChildWithName(repeater, QString::fromStdString(itemName));
-        } else if (rootClassName == spix::qt::listview_class_name || rootClassName == spix::qt::gridview_class_name) {
+        } else if (isInstanceOf(root, spix::qt::listview_class_name) || isInstanceOf(root, spix::qt::gridview_class_name)) {
             QQuickItem* list = static_cast<QQuickItem*>(root);
             subItem = spix::qt::ListViewChildWithName(list, QString::fromStdString(itemName));
         } else {
