@@ -14,6 +14,7 @@
 #include <QObject>
 #include <QQuickItem>
 #include <QQuickWindow>
+#include <QtDebug>
 
 namespace {
 
@@ -57,12 +58,12 @@ QQuickItem* getQQuickItemWithRoot(const spix::ItemPath& path, QObject* root)
     }
 
     auto itemName = path.rootComponent();
-    QQuickItem* subItem = nullptr;
+    QObject* subItem = nullptr;
 
     if (itemName.compare(0, 1, ".") == 0) {
         QVariant propValue = root->property(itemName.c_str() + 1);
         if (propValue.isValid())
-            subItem = propValue.value<QQuickItem*>();
+            subItem = propValue.value<QObject*>();
     } else {
         if (isInstanceOf(root, spix::qt::repeater_class_name)) {
             QQuickItem* repeater = static_cast<QQuickItem*>(root);
@@ -71,13 +72,25 @@ QQuickItem* getQQuickItemWithRoot(const spix::ItemPath& path, QObject* root)
             QQuickItem* list = static_cast<QQuickItem*>(root);
             subItem = spix::qt::ListViewChildWithName(list, QString::fromStdString(itemName));
         } else {
-            subItem = root->findChild<QQuickItem*>(itemName.c_str());
+            subItem = root->findChild<QObject*>(itemName.c_str());
         }
     }
 
     if (path.length() == 1) {
-        return subItem;
+        return qobject_cast<QQuickItem*>(subItem);
     }
+    
+    /*
+    if (!subItem)
+    {
+    	qDebug() << "Cannot find subitem: " << itemName.c_str();
+    	for (QObject* child : root->children())
+    	{
+    		if (!child->objectName().isEmpty())
+	    		qDebug() << "Did you mean: " << child->objectName();
+    	}
+    }
+    */
 
     return getQQuickItemWithRoot(path.subPath(1), subItem);
 }
