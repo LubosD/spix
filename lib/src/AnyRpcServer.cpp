@@ -54,7 +54,7 @@ AnyRpcServer::AnyRpcServer(int anyrpcPort)
             return takeScreenshot(std::move(targetItem), std::move(filePath));
         });
 
-    utils::AddFunctionToAnyRpc<void()>(methodManager, "quit", "Close the app", [this] { quit(); });
+    utils::AddFunctionToAnyRpc<void(int)>(methodManager, "quit", "Close the app", [this](int code) { quit(code); });
 
     m_pimpl->server->BindAndListen(anyrpcPort);
 }

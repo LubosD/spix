@@ -131,9 +131,9 @@ void TestServer::takeScreenshot(ItemPath targetItem, std::string filePath)
     m_cmdExec->enqueueCommand<cmd::Screenshot>(targetItem, std::move(filePath));
 }
 
-void TestServer::quit()
+void TestServer::quit(int code)
 {
-    m_cmdExec->enqueueCommand<cmd::Quit>();
+    m_cmdExec->enqueueCommand<cmd::Quit>(code);
 }
 
 } // namespace spix

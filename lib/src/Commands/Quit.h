@@ -13,7 +13,10 @@ namespace cmd {
 
 class Quit : public Command {
 public:
+	Quit(int code);
     void execute(CommandEnvironment& env) override;
+private:
+    int m_code;
 };
 
 } // namespace cmd

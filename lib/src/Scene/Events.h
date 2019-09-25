@@ -31,7 +31,7 @@ public:
     virtual void mouseMove(Item* item, Point loc) = 0;
     virtual void stringInput(Item* item, const std::string& text) = 0;
     virtual void extMouseDrop(Item* item, Point loc, PasteboardContent& content) = 0;
-    virtual void quit() = 0;
+    virtual void quit(int code) = 0;
 };
 
 } // namespace spix

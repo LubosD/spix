@@ -20,7 +20,7 @@ public:
     void mouseMove(Item* item, Point loc) override;
     void stringInput(Item* item, const std::string& text) override;
     void extMouseDrop(Item* item, Point loc, PasteboardContent& content) override;
-    void quit() override;
+    void quit(int code) override;
 
     // Mock stuff
     std::function<void(Item*, Point, bool, bool)> onMouseClickEvent;

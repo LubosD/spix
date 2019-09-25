@@ -43,7 +43,7 @@ void MockEvents::extMouseDrop(Item* item, Point loc, PasteboardContent& content)
     }
 }
 
-void MockEvents::quit()
+void MockEvents::quit(int code)
 {
 }
 

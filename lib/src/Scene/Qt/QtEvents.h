@@ -17,7 +17,7 @@ public:
     void mouseMove(Item* item, Point loc) override;
     void stringInput(Item* item, const std::string& text) override;
     void extMouseDrop(Item* item, Point loc, PasteboardContent& content) override;
-    void quit() override;
+    void quit(int code) override;
 
 private:
     /// Keep track of which buttons are currently pressed

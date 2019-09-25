@@ -50,7 +50,7 @@ public:
     std::vector<std::string> getErrors();
 
     void takeScreenshot(ItemPath targetItem, std::string filePath);
-    void quit();
+    void quit(int code);
 
 protected:
     virtual void executeTest() = 0;

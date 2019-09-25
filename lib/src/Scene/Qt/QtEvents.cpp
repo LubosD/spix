@@ -155,9 +155,9 @@ void QtEvents::extMouseDrop(Item* item, Point loc, PasteboardContent& content)
     QGuiApplication::postEvent(window, drop);
 }
 
-void QtEvents::quit()
+void QtEvents::quit(int code)
 {
-    QGuiApplication::quit();
+    QCoreApplication::exit(code);
 }
 
 } // namespace spix

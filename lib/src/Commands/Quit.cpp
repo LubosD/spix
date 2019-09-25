@@ -11,9 +11,14 @@
 namespace spix {
 namespace cmd {
 
+Quit::Quit(int code)
+: m_code(code)
+{
+}
+
 void Quit::execute(CommandEnvironment& env)
 {
-    env.scene().events().quit();
+    env.scene().events().quit(m_code);
 }
 
 } // namespace cmd
