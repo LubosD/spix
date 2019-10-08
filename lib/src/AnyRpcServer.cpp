@@ -28,6 +28,8 @@ AnyRpcServer::AnyRpcServer(int anyrpcPort)
 
     utils::AddFunctionToAnyRpc<void(std::string)>(methodManager, "mouseClick", "Click on the object at the given path",
         [this](std::string path) { mouseClick(std::move(path)); });
+    utils::AddFunctionToAnyRpc<void(std::string)>(methodManager, "longClick", "Long click on the object at the given path",
+        [this](std::string path) { mouseClick(std::move(path), true); });
     utils::AddFunctionToAnyRpc<void(std::string)>(methodManager, "mouseBeginDrag", "Begin a drag with the mouse",
         [this](std::string path) { mouseBeginDrag(std::move(path)); });
     utils::AddFunctionToAnyRpc<void(std::string)>(methodManager, "mouseEndDrag", "End a drag with the mouse",

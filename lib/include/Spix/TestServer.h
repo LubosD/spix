@@ -38,7 +38,7 @@ public:
 
     // Commands
     void wait(std::chrono::milliseconds waitTime);
-    void mouseClick(ItemPath path);
+    void mouseClick(ItemPath path, bool longClick = false);
     void mouseBeginDrag(ItemPath path);
     void mouseEndDrag(ItemPath path);
     void mouseDropUrls(ItemPath path, const std::vector<std::string>& urls);

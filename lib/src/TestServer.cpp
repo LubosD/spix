@@ -52,11 +52,11 @@ void TestServer::wait(std::chrono::milliseconds waitTime)
     m_cmdExec->enqueueCommand<cmd::Wait>(waitTime);
 }
 
-void TestServer::mouseClick(ItemPath path)
+void TestServer::mouseClick(ItemPath path, bool longClick)
 {
     std::promise<void> promise;
     auto result = promise.get_future();
-    m_cmdExec->enqueueCommand<cmd::ClickOnItem>(path, std::move(promise));
+    m_cmdExec->enqueueCommand<cmd::ClickOnItem>(path, longClick, std::move(promise));
 
     result.get();
 }

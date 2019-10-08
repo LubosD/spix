@@ -15,12 +15,13 @@ namespace cmd {
 
 class ClickOnItem : public Command {
 public:
-    ClickOnItem(ItemPosition path, std::promise<void> promise);
+    ClickOnItem(ItemPosition path, bool longClick, std::promise<void> promise);
 
     void execute(CommandEnvironment& env) override;
 
 private:
     ItemPosition m_position;
+    const bool m_longClick;
     std::promise<void> m_promise;
 };
 
